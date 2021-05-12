@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">DayTrac</string>
+    <string name="accomplish_today">What would you like to accomplish?</string>
+    <string name="no_data">No data yet. Check back after midnight!</string>
+    <string name="add">Add</string>
+    <string name="uninstall">Uninstall</string>
+    <string name="clearHistory">Clear History</string>
+</resources>

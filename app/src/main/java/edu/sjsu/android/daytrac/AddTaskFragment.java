@@ -75,9 +75,11 @@ public class AddTaskFragment extends Fragment{
 
                 ArrayList<Task> tasks = getTasks();
                 newTask = userInput.getText().toString();
+                if(newTask.equals("")){
 
-                tasks.add(new Task(newTask, date));
-                Log.d("ADDTASK","Task count: "+ tasks.size());
+                }else{
+                    tasks.add(new Task(newTask, date));
+                }
                 mFragmentListener.onCloseFragment(1);
             }
         });

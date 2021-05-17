@@ -303,9 +303,6 @@ public class MainActivity extends BaseClass implements MyAdapter.OnCardListener,
         // below line is to apply changes
         // and save data in shared prefs.
         editor.apply();
-
-        // after saving data we are displaying a toast message.
-        Toast.makeText(this, "Saved Array List to Shared preferences. ", Toast.LENGTH_SHORT).show();
     }
 
 

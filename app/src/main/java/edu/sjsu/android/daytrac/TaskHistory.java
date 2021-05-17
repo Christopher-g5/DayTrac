@@ -24,14 +24,6 @@ public class TaskHistory {
         return name;
     }
 
-    public Date getLastDateListed() {
-        return lastDateListed;
-    }
-
-    public void setLastDateListed(Date lastDateListed) {
-        this.lastDateListed = lastDateListed;
-    }
-
 
     public int getSuccesses() {
         return successes;

@@ -52,11 +52,11 @@ public class AddTaskFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        Log.d("ADDTASK","Fragment Open");
+
         final View rootview = inflater.inflate(R.layout.fragment_add_task, container, false);
 
         userInput = rootview.findViewById(R.id.newTask);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, MainActivity.taskHistoriesStrings);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, MainActivity.taskHistoriesStrings);
         userInput.setAdapter(adapter);
 
         addButton = rootview.findViewById(R.id.confirmAdd);

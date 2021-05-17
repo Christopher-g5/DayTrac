@@ -39,12 +39,9 @@ import java.util.List;
 public class GraphFragment extends Fragment {
 
     private static FragmentListener mFragmentListener;
-    //(X, Y) X = taskName, Y = Success
-    private Hashtable<Integer, Integer> my_data = new Hashtable<Integer, Integer>();
     private ArrayList<TaskHistory> inputTaskHistories;
     private BarChart chart;
     private TextView text;
-    private String[] labels;
     private Button closeButton;
 
     public GraphFragment() {
@@ -66,7 +63,7 @@ public class GraphFragment extends Fragment {
             text = rootview.findViewById(R.id.noDataText);
             text.setVisibility(View.VISIBLE);
         }else{
-            chart = (BarChart) rootview.findViewById(R.id.chart);
+            chart = (rootview.findViewById(R.id.chart));
             addChartData();
         }
 
@@ -84,16 +81,13 @@ public class GraphFragment extends Fragment {
     //Convert taskHistories to go in entries
     private void thToData(){
 
-        List<BarEntry> successGroup = new ArrayList<BarEntry>();
-        List<BarEntry> failGroup = new ArrayList<BarEntry>();
-        labels = new String[inputTaskHistories.size()];
+        List<BarEntry> successGroup = new ArrayList<>();
+        List<BarEntry> failGroup = new ArrayList<>();
 
         for(int i = 0; i < inputTaskHistories.size(); i++) {
             // turn your data into Entry objects
             successGroup.add(new BarEntry(i, inputTaskHistories.get(i).getSuccesses()));
             failGroup.add(new BarEntry(i, inputTaskHistories.get(i).getFailures()));
-            Log.d("FAIL", "Size" + successGroup.size());
-            labels[i] = inputTaskHistories.get(i).getName();
         }
 
         BarDataSet set1 = new BarDataSet(successGroup, "Success");
@@ -111,11 +105,10 @@ public class GraphFragment extends Fragment {
         float groupSpace = 0.1f;
         float barSpace = 0.00f; // x2 dataset
         float barWidth = 0.45f; // x2 dataset
-// (0.02 + 0.45) * 2 + 0.06 = 1.00 -> interval per "group"
+        // (0.02 + 0.45) * 2 + 0.06 = 1.00 -> interval per "group"
         BarData data = new BarData(set1, set2);
         data.setBarWidth(barWidth); // set the width of each bar
         chart.setData(data);
-        //chart.setVisibleXRangeMaximum(4f);
         chart.groupBars(0.00f, groupSpace, barSpace); // perform the "explicit" grouping
 
         XAxis xAxis = chart.getXAxis();
@@ -124,7 +117,6 @@ public class GraphFragment extends Fragment {
         xAxis.setSpaceMax(0.1f);
         xAxis.setSpaceMin(0.1f);
         xAxis.setGranularity(1f);
-//        xAxis.setLabelCount(inputTaskHistories.size(), true);
         xAxis.setCenterAxisLabels(true);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 
@@ -136,8 +128,6 @@ public class GraphFragment extends Fragment {
         yAxis.setGranularity(1f);
 
         chart.getAxisRight().setEnabled(false);
-        //chart.getXAxis().setEnabled(false);
-
         chart.getDescription().setText("");
         // refresh
         chart.invalidate();

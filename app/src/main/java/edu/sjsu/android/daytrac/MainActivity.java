@@ -36,10 +36,8 @@ public class MainActivity extends BaseClass implements MyAdapter.OnCardListener,
 
     public static ArrayList<String> taskHistoriesStrings;
     private RecyclerView recyclerView;
-    private MyDialogFragment dialog;
     private Button addTaskButton;
     private FloatingActionButton graphButton;
-    private boolean isFragmentDisplayed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,8 +64,6 @@ public class MainActivity extends BaseClass implements MyAdapter.OnCardListener,
             }
         });
 
-//        tasks = new ArrayList<>();
-//        taskHistories = new ArrayList<>();
         loadData();
         endOfDayOperations();
 
@@ -75,7 +71,6 @@ public class MainActivity extends BaseClass implements MyAdapter.OnCardListener,
         for(int i = 0; i < taskHistories.size(); i++){
             taskHistoriesStrings.add(taskHistories.get(i).getName());
         }
-        Log.d("STRINGS", "Size of :" + taskHistoriesStrings.size());
 
         //set adapter to custom adapter with the data
         recyclerView = findViewById(R.id.recycler);
@@ -96,8 +91,6 @@ public class MainActivity extends BaseClass implements MyAdapter.OnCardListener,
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
                 tasks.remove(viewHolder.getAdapterPosition());
-                Log.d("POSITION","Position of task was " + viewHolder.getAdapterPosition());
-                Log.d("DELETION","Size of tasks is " + tasks.size());
                 recyclerView.getAdapter().notifyItemRemoved(viewHolder.getAdapterPosition());
                 saveData();
             }
@@ -133,13 +126,6 @@ public class MainActivity extends BaseClass implements MyAdapter.OnCardListener,
 
     @Override
     public void onCardClick(int position) {
-        if (position == tasks.size() - 1) {
-            //dialog.show(getSupportFragmentManager(), "MyDialog");
-        }
-        else{
-            //createViewContact(position);
-        }
-        recyclerView.getAdapter().notifyItemChanged(position);
     }
 
     @Override
@@ -194,7 +180,6 @@ public class MainActivity extends BaseClass implements MyAdapter.OnCardListener,
             Iterator<TaskHistory> it = taskHistories.iterator();
             while(it.hasNext()){
                 TaskHistory currentTask = it.next();
-                Log.d("EOD", currentTask.getName() + " Successes: " + currentTask.getSuccesses() + " Failures: " + currentTask.getFailures());
             }
         }
     }
@@ -208,7 +193,6 @@ public class MainActivity extends BaseClass implements MyAdapter.OnCardListener,
             // Add the addTaskFragment.
             fragmentTransaction.add(R.id.fragment_container, addTaskFragment).addToBackStack(null).commit();
             // Set boolean flag to indicate fragment is open.
-            isFragmentDisplayed = true;
         }else if(choice == 2){
             GraphFragment graphFragment = GraphFragment.newInstance(this);
             // Get the FragmentManager and start a transaction.
@@ -235,8 +219,6 @@ public class MainActivity extends BaseClass implements MyAdapter.OnCardListener,
             }
             recyclerView.getAdapter().notifyDataSetChanged();
             saveData();
-            // Set boolean flag to indicate fragment is closed.
-            isFragmentDisplayed = false;
             addTaskButton.setVisibility(View.VISIBLE);
             graphButton.setVisibility(View.VISIBLE);
         }else if(choice == 2){
